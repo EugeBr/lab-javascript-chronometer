@@ -35,9 +35,7 @@ class Chronometer {
   };
 
   stop() {
-    while (this.currentTime !== 0) {
-      clearInterval(this.intervalId);
-    }; 
+  clearInterval(this.intervalId);
   };
 
   reset() {
