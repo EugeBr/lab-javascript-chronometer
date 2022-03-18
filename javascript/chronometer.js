@@ -11,18 +11,12 @@ class Chronometer {
   };
 
   getMinutes() {
-  let minuteCounter = 0;
-  minuteCounter = +(this.currentTime / 60).toFixed();
+  let minuteCounter = Math.floor(this.currentTime / 60);
     return minuteCounter;
   };
 
   getSeconds() {
-  let secondCounter;
-  if (this.currentTime === 0){
-    secondCounter = 0;
-  }else if (this.currentTime % 60 !== 0) {
-    secondCounter = this.currentTime - (this.minuteCounter * 60);
-  }
+  let secondCounter = this.currentTime % 60;
   return secondCounter;
   };
 
@@ -35,7 +29,7 @@ class Chronometer {
   };
 
   stop() {
-  clearInterval(this.intervalId);
+    clearInterval(this.intervalId);
   };
 
   reset() {
@@ -43,8 +37,8 @@ class Chronometer {
   };
 
   split() {
-    let mm = computeTwoDigitNumber(this.currentTime.getMinutes());
-    let ss = computeTwoDigitNumber(this.currentTime.getSeconds());
+    let mm = this.computeTwoDigitNumber(this.getMinutes());
+    let ss = this.computeTwoDigitNumber(this.getSeconds());
     return `${mm}:${ss}`;
   };
 
