@@ -29,7 +29,7 @@ class Chronometer {
   };
 
   stop() {
-    clearInterval(this.intervalId);
+    return clearInterval(this.intervalId);
   };
 
   reset() {
