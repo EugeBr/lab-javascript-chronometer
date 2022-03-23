@@ -13,45 +13,39 @@ const milDecElement = document.getElementById('milDec');
 const milUniElement = document.getElementById('milUni');
 const splitsElement = document.getElementById('splits');
 
-function printTime() {
-  printMinutes();
-  printSeconds();
-  //printMilliseconds();
+function printTime(minutes, seconds, milliseconds) {
+  printMinutes(minutes);
+  printSeconds(seconds);
+  printMilliseconds(milliseconds);
 }
 
-function printMinutes() {
-  let minDec = (chronometer.getMinutes()).computeTwoDigitNumber()[0];
-  let minUni = (chronometer.getMinutes()).computeTwoDigitNumber()[1];
-  minDecElement.innerHTML = minDec
-  minUniElement.innerHTML = minUni
+function printMinutes(minutes) {
+  minDecElement.innerText = minutes[0];
+  minUniElement.innerText = minutes[1];
 }
 
-function printSeconds() {
-  const seconds =chronometer.computeTwoDigitNumber(chronometer.getSeconds())
-  secDecElement.innerText= seconds[0]
-  secUniElement.innerText= seconds[1]
+function printSeconds(seconds) {
+  secDecElement.innerText = seconds[0];
+  secUniElement.innerText = seconds[1];
 }
 
 // ==> BONUS
-function printMilliseconds() {
-  
+function printMilliseconds(milliseconds) {
+  milDecElement.innerText = milliseconds[0];
+  milUniElement.innerText = milliseconds[1];
 }
 
 function printSplit() {
   let newLi = document.createElement('li');
-  //newLi.className = 'list-item';
   newLi.innerHTML = chronometer.split();
   splitsElement.appendChild(newLi);
 }
 
 function clearSplits() {
   splitsElement.innerHTML = "";
-  chronometer.reset();
 }
 
 function setStopBtn() {
-  chronometer.start()
-  printTime();
   btnLeft.className = 'btn stop';
   btnLeft.innerHTML = 'STOP';
   
@@ -76,9 +70,11 @@ function setResetBtn() {
 // Start/Stop Button
 btnLeftElement.addEventListener('click', () => {
   if (btnLeftElement.innerHTML === 'START') {
+    chronometer.start(printTime);
     setStopBtn();
     setSplitBtn();
   } else {
+    chronometer.stop();
     setStartBtn();
     setResetBtn();
   }
@@ -90,6 +86,6 @@ btnRightElement.addEventListener('click', () => {
     printSplit();
   } else {
     clearSplits();
-    chronometer.reset();
+    chronometer.reset(printTime);
   }
 });
